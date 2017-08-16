@@ -1,5 +1,9 @@
 const express = require('express');
 const logger = require('morgan')
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost/APIProject01',{useMongoClient: true});
 const app = express();
 
 //Routes
@@ -8,6 +12,7 @@ const index = require('./routers/index');
 
 // Middlewares
 app.use(logger('dev'));
+app.use(bodyParser.json());
 
 //Routes
 app.use('/users',users);
