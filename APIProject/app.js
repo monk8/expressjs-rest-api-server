@@ -15,8 +15,8 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 
 //Routes
-app.use('/users',users);
 app.get('/',index);
+app.use('/users',users);
 //Catch 404 Errors and forword them to error handler
 app.use((req,res,next) => {
     const err = new Error('Not Found');

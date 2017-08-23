@@ -8,8 +8,10 @@ router.route('/')
 router.route('/:userId')
     .get(userController.getUser)
     .put(userController.replaceUser)
-    .patch(userController.updateUser)
-    ;
+    .patch(userController.updateUser);
+
+router.route('/:userId/cars').get(userController.getUserCars)
+    .post(userController.newUserCar);
 
 module.exports = router;
 
