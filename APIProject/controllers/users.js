@@ -1,3 +1,4 @@
+//controllers/users.js
 const User = require('../models/user');
 const Car =  require('../models/car');
 module.exports = {
