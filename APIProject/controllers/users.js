@@ -1,6 +1,9 @@
 const User = require('../models/user');
 const Car =  require('../models/car');
-
+//const Joi = require('joi');
+// const idSchema = Joi.object().keys({
+//     userId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).required()
+// });
 module.exports = {
     index: async (req, res, next) => {
         const users = await User.find();
@@ -14,7 +17,8 @@ module.exports = {
     },
     getUser: async (req, res, next) => {
         // enforce that req.body must contain all the fields
-        console.log('req.params', req.params);
+        //验证的一般用法
+        //const result = Joi.validate(req.params,idSchema);
         const { userId } = req.params;
         const users = await User.findById(userId);
         res.status(200).json(users);
@@ -33,10 +37,9 @@ module.exports = {
         res.status(200).json({ success: true });
     },
     getUserCars: async (req, res, next) => {
+        //const result = Joi.validate(req.params,idSchema);
         const { userId } = req.params;
         const user = await User.findById(userId).populate('cars');
-        
-        console.log('user', user);
         res.status(200).json(user.cars);
     },
     newUserCar: async (req, res, next) => {
@@ -54,7 +57,6 @@ module.exports = {
         // Save the user
         await user.save();        
         res.status(201).json(newCar);
-
     }
 }
 /*
