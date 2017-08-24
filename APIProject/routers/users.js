@@ -1,18 +1,18 @@
 //routers/users.js
 const express = require('express');
-//const router = express.Router();
 const router = require('express-promise-router')();
 const userController = require('../controllers/users');
-const { validateParam, schemas } = require('../helpers/routerHelpers');
+const { validateParam, validateBody,schemas } = require('../helpers/routerHelpers');
 router.route('/')
     .get(userController.index)
-    .post(userController.newUser);
+    .post(validateBody(schemas.userSchema),userController.newUser);
 router.route('/:userId')
-    .get(validateParam(schemas.idSchema, 'userId'), userController.getUser)
-    .put(userController.replaceUser)
-    .patch(userController.updateUser);
-router.route('/:userId/cars').get(userController.getUserCars)
-    .post(userController.newUserCar);
+    .get(validateParam(schemas.idSchema, 'userId'),userController.getUser)
+    .put([validateParam(schemas.idSchema, 'userId'),validateBody(schemas.userSchema)], userController.replaceUser)
+    .patch([validateParam(schemas.idSchema, 'userId'),validateBody(schemas.userOptionalSchema)],userController.updateUser);
+router.route('/:userId/cars')
+    .get(validateParam(schemas.idSchema, 'userId'),userController.getUserCars)
+    .post([validateParam(schemas.idSchema, 'userId'),validateBody(schemas.carSchema)],userController.newUserCar);
 module.exports = router;
 /*
 另一种写法    

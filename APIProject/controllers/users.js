@@ -1,9 +1,5 @@
 const User = require('../models/user');
 const Car =  require('../models/car');
-//const Joi = require('joi');
-// const idSchema = Joi.object().keys({
-//     userId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).required()
-// });
 module.exports = {
     index: async (req, res, next) => {
         const users = await User.find();
@@ -11,20 +7,16 @@ module.exports = {
         res.status(200).json(users);
     },
     newUser: async (req, res, next) => {
-        const newUser = new User(req.body);
+        const newUser = new User(req.value.body);
         const user = await newUser.save();
         res.status(200).json(user);
     },
     getUser: async (req, res, next) => {
-        // enforce that req.body must contain all the fields
-        //验证的一般用法
-        //const result = Joi.validate(req.params,idSchema);
-        const { userId } = req.params;
+        const { userId } = req.value.params;
         const users = await User.findById(userId);
         res.status(200).json(users);
     },
     replaceUser: async (req, res, next) => {
-        // req.body may contain any number of fields
         const { userId } = req.params;
         const newUser = req.body;
         const result = await User.findByIdAndUpdate(userId, newUser);
