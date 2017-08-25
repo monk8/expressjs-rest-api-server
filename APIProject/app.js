@@ -9,7 +9,7 @@ const app = express();
 //Routes
 const users = require('./routers/users');
 const index = require('./routers/index');
-
+const cars =  require('./routers/cars');
 // Middlewares
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -17,6 +17,8 @@ app.use(bodyParser.json());
 //Routes
 app.get('/',index);
 app.use('/users',users);
+app.use('/cars',cars);
+
 //Catch 404 Errors and forword them to error handler
 app.use((req,res,next) => {
     const err = new Error('Not Found');

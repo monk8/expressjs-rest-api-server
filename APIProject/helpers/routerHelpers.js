@@ -41,10 +41,6 @@ module.exports = {
             }
         }
     },
-    /**
-     *  req['params'][name] => req.params.userId
-     *  name = 'UserId'
-     */
     schemas: {
         userSchema:{
             firstName: Joi.string().required(),
@@ -60,6 +56,13 @@ module.exports = {
             userId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).required()
         }),
         carSchema: Joi.object().keys({
+            
+            make: Joi.string().required(),
+            model: Joi.string().required(),
+            year: Joi.number().required()
+        }),
+        newCarSchema: Joi.object().keys({
+            seller: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required(),
             make:Joi.string().required(),
             model:Joi.string().required(),
             year:Joi.number().required()
