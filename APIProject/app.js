@@ -2,9 +2,11 @@ const express = require('express');
 const logger = require('morgan')
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const helmet = require('helmet');
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/APIProject01',{useMongoClient: true});
 const app = express();
+app.use(helmet());
 
 //Routes
 const users = require('./routers/users');
