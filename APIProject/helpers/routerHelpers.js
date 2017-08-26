@@ -3,11 +3,8 @@ const Joi = require('joi');
 module.exports = { 
     validateParam:(schema,name) => {
         return (req,res,next) => {
-           // console.log('req.params',req.params);
-            //var foo = {[name]:req['params'][name]};
-            //var foo = {name:'dd'};            
-            //console.log('foo',foo);
-            const result = Joi.validate({[name]:req['params'][name]},schema);
+           //var foo = ;
+           const result = Joi.validate({param: req['params'][name]},schema);
             if(result.error){
                 console.error(result.error);
                 return res.status(400).json(result.error);
@@ -18,7 +15,7 @@ module.exports = {
                 if(!req.value['params']){
                     req.value['params'] = {};
                 }
-                req.value['params']= result.value;
+                req.value['params'][name]= result.value.param;
                 next();
             }
         }
@@ -53,25 +50,32 @@ module.exports = {
             email:Joi.string().email()
         },
         idSchema: Joi.object().keys({
-            userId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).required()
+            param:Joi.string().regex(/^[0-9a-fA-F]{24}$/).required()
         }),
-        carSchema: Joi.object().keys({
+        userCarSchema: Joi.object().keys({
             
             make: Joi.string().required(),
             model: Joi.string().required(),
             year: Joi.number().required()
         }),
-        newCarSchema: Joi.object().keys({
+        carSchema: Joi.object().keys({
             seller: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required(),
             make:Joi.string().required(),
             model:Joi.string().required(),
             year:Joi.number().required()
+        }),
+        putCarSchema: Joi.object().keys({
+            make:Joi.string().required(),
+            model:Joi.string().required(),
+            year:Joi.number().required()
+        }),
+        patchCarSchema: Joi.object().keys({
+            make:Joi.string(),
+            model:Joi.string(),
+            year:Joi.number()
         })
     }
 }
- const idSchema = Joi.object().keys({
-     userId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).required()
- });
 
 
 

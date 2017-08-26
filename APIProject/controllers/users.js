@@ -14,7 +14,7 @@ module.exports = {
     },
     getUser: async (req, res, next) => {
         const { userId } = req.value.params;
-        const users = await User.findById(userId).populate('cars');
+        const users = await User.findById(userId);
         res.status(200).json(users);
     },
     replaceUser: async (req, res, next) => {

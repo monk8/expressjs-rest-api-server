@@ -12,7 +12,8 @@ router.route('/:userId')
     .patch([validateParam(schemas.idSchema, 'userId'),validateBody(schemas.userOptionalSchema)],userController.updateUser);
 router.route('/:userId/cars')
     .get(validateParam(schemas.idSchema, 'userId'),userController.getUserCars)
-    .post([validateParam(schemas.idSchema, 'userId'),validateBody(schemas.carSchema)],userController.newUserCar);
+    .post([validateParam(schemas.idSchema, 'userId'),validateBody(schemas.userCarSchema)],userController.newUserCar);
+    
 module.exports = router;
 /*
 另一种写法    

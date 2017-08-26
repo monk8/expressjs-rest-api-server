@@ -18,7 +18,6 @@ app.use(bodyParser.json());
 app.get('/',index);
 app.use('/users',users);
 app.use('/cars',cars);
-
 //Catch 404 Errors and forword them to error handler
 app.use((req,res,next) => {
     const err = new Error('Not Found');
